@@ -1,0 +1,14 @@
+# VSCODE config
+.vscode/
+
+# binary files
+*.so
+
+# python compiled files
+**/__pycache__
+
+# log files
+*.csv
+*.txt
+*.wav
+
