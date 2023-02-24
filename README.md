@@ -4,7 +4,13 @@ Used fft library from my github repo in
 https://github.com/AdityaP1502/fft-c
 
 # Installation
-To install, just run the python install scripts in scripts directory. Here is the command:
+To install, first clone the repository. For windows user, clone the windows branch. 
+
+```
+git clone https://github.com/AdityaP1502/real-time-audio-filter -b Windows
+```
+
+just run the python install scripts in scripts directory. Here is the command:
 
 Windows
 ```shell
