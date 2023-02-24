@@ -1,13 +1,13 @@
 # TODO
 ## Cross - Platform Support
-- [ ] compiled c shared library in windows (DLL)
+- [x] compiled c shared library in windows (DLL)
 
 ## Code readability
 - [ ] tidy the project strcuture
-- [ ] refactor recorder code
+- [x] refactor recorder code
 
 # Installation
-- [ ] create installation scripts
+- [x] create installation scripts
 
 ## Bugs
 - [ ] fixed terminal don't show any input after closing the application 
