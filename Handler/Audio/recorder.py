@@ -30,10 +30,7 @@ class Recorder():
         else:
             self.state = 0
 
-    def update_state_windows(self, key_press):
-        print(key_press)
-        print(type(key_press).__name__)
-        
+    def update_state_windows(self, key_press):        
         if type(key_press).__name__ == "Key":
             if key_press == KeyPressHandlerWindows.end_key:
                 key = chr(27)
@@ -43,9 +40,11 @@ class Recorder():
             
         elif type(key_press).__name__ == "KeyCode":
             key = key_press.char
-        
-        print(key)
-        
+            if key == '\x03':
+                print("CTRL + C is pressed. Aborting...")
+                self.update_state(chr(27)) # end audio handler
+                raise Exception("Ctrl + c is pressed")
+                
         self.update_state(key)
         
             
