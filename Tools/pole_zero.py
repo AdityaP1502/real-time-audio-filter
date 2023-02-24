@@ -1,4 +1,4 @@
-from Tools.fft import convFFT
+from Tools.fft.fft import convfft
 from cmath import exp, polar
 from math import pi
 
@@ -11,7 +11,7 @@ def fromZeroToPolynomial(zeros):
   k = len(coefs)
   while k > 1:
     for i in range(k >> 1):
-      coefs[i] = convFFT(coefs[i], coefs[i + 1])
+      coefs[i] = convfft(coefs[i], coefs[i + 1])
     
     if k % 2 == 1:
       coefs[k >> 1] = coefs[k - 1]

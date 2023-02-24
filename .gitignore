@@ -3,6 +3,7 @@
 
 # binary files
 *.so
+*.dll
 
 # python compiled files
 **/__pycache__

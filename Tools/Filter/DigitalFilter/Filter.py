@@ -1,7 +1,7 @@
 from Tools.pole_zero import fromZeroToPolynomial, calculate_freq_response
-from Tools.fft import mag2db, magnitude, angle
+#from Tools.fft import mag2db, magnitude, angle
 from multiprocessing import Pool, cpu_count
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 class Filter():
   def __init__(self, N, b0 = None, zero = [], pole = [], hn = []) -> None:
@@ -82,37 +82,37 @@ class Filter():
     denom_str = self.__format_transfer_function(a)
     return "{}/{}".format(numen_str, denom_str)
   
-  def __freq_response_data_points(self, N : int):
-    # normalized frequency (xpi)
-    # from [0...1] 
+  # def __freq_response_data_points(self, N : int):
+  #   # normalized frequency (xpi)
+  #   # from [0...1] 
     
-    w = [i/N for i in range(N)]
+  #   w = [i/N for i in range(N)]
     
-    data_pole = [[self.pole, omega] for omega in w]
-    data_zero = [[self.zero, omega] for omega in w]
+  #   data_pole = [[self.pole, omega] for omega in w]
+  #   data_zero = [[self.zero, omega] for omega in w]
         
-    with Pool(cpu_count()) as pool:
-      pole_response = pool.map(calculate_freq_response, data_pole)
-      zero_response = pool.map(calculate_freq_response, data_zero)
+  #   with Pool(cpu_count()) as pool:
+  #     pole_response = pool.map(calculate_freq_response, data_pole)
+  #     zero_response = pool.map(calculate_freq_response, data_zero)
     
-    b0_mag = magnitude(self.b0)
-    b0_angle = angle(self.b0)
+  #   b0_mag = magnitude(self.b0)
+  #   b0_angle = angle(self.b0)
     
-    find_total_response = lambda x, y: (b0_mag * x[0]/y[0], b0_angle + x[1] - y[1])
-    return w, list(map(find_total_response, zero_response, pole_response))
+  #   find_total_response = lambda x, y: (b0_mag * x[0]/y[0], b0_angle + x[1] - y[1])
+  #   return w, list(map(find_total_response, zero_response, pole_response))
 
-  def showFreqResponse(self, N = 500, log_scale=False):
-    w, data_points = self.__freq_response_data_points(N)
-    mag_response, phase_response = zip(*data_points)
+  # def showFreqResponse(self, N = 500, log_scale=False):
+  #   w, data_points = self.__freq_response_data_points(N)
+  #   mag_response, phase_response = zip(*data_points)
 
-    if log_scale:
-      mag_response = mag2db(mag_response)
+  #   if log_scale:
+  #     mag_response = mag2db(mag_response)
       
-    plt.plot(w, mag_response)
-    plt.show()
+  #   plt.plot(w, mag_response)
+  #   plt.show()
     
-    plt.plot(w, phase_response)
-    plt.plot()
+  #   plt.plot(w, phase_response)
+  #   plt.plot()
     
   def filter(self, xn):
     NotImplemented

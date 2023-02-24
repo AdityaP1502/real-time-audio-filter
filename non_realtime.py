@@ -3,9 +3,8 @@ import sys
 import wave
 import pyaudio
 
-from recorder.recorder import Recorder
-from Filter.DigitalFilter.FilterDesigner import FIR_FilterDesigner
-from libs.Include.fft_iterative import convfft
+from Handler.Audio.recorder import Recorder
+from Tools.Filter.DigitalFilter.FilterDesigner import FIR_FilterDesigner
 
 MAX_INT16 = 32767
 MIN_INT16 = -32768

@@ -1,8 +1,9 @@
-from Filter.AnalogFilter.NLPF import NLPF
 import math as mt
-from Filter.DigitalFilter.IIR_Filter import IIR_Filter
-from Filter.DigitalFilter.FIR_Filter import FIR_Filter
-from Filter.DigitalFilter.WIndow import Window
+
+from Tools.Filter.AnalogFilter.NLPF import NLPF
+from Tools.Filter.DigitalFilter.IIR_Filter import IIR_Filter
+from Tools.Filter.DigitalFilter.FIR_Filter import FIR_Filter
+from Tools.Filter.DigitalFilter.WIndow import Window
 
 
 class IIR_FilterDesigner():

@@ -49,7 +49,6 @@ class Window():
       
     return list(map(prod, self.wn, hn))
       
-      
   @staticmethod
   def __rectangular(dw):
     N = ceil(4 * pi / dw)

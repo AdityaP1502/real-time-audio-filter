@@ -4,15 +4,20 @@ import os.path as path
 import random
 from time import time
 from multiprocessing import Value
+import platform
 n_finished = Value("i", 0)
 
 """
 A python wrapper function for c fft iteretive function
 """
 
-SHARED_LIBS_DIR_FFT = path.abspath("libs/shared/libitfft.so")
-SHARED_LIBS_DIR_CONVFFT = path.abspath("libs/shared/libconv.so")
-
+if platform.system() == "Linux":
+    SHARED_LIBS_DIR_FFT = path.abspath("Tools/fft/libs/shared/libitfft.so")
+    SHARED_LIBS_DIR_CONVFFT = path.abspath("Tools/fft/libs/shared/libconv.so")
+    
+elif platform.system() == "Windows":
+    SHARED_LIBS_DIR_FFT = path.abspath("Tools/fft/libs/shared/itfft.dll")
+    SHARED_LIBS_DIR_CONVFFT = path.abspath("Tools/fft/libs/shared/conv.dll")
 # Structure definition 
 
 class COMPLEX_NUMBER(Structure):
@@ -242,4 +247,3 @@ if __name__ == "__main__":
     
     sys.stdout.write("\r                                                    ")
     print("\rdone!")
-    

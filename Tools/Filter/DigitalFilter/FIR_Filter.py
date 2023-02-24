@@ -1,5 +1,5 @@
-from Filter.DigitalFilter.Filter import Filter
-from libs.Include.fft_iterative import convfft, convfft_overlap_save
+from Tools.fft.fft import *
+from Tools.Filter.DigitalFilter.Filter import Filter
 
 class FIR_Filter(Filter):
   def __init__(self, N, b0=None, zero=..., pole=..., hn=...) -> None:
@@ -14,7 +14,6 @@ class FIR_Filter(Filter):
     self.__do_filter = self.__filter_overlap_save if is_real_time else self.__filter_normal
     self.sample_length = sample_length
 
-  
   def __filter_overlap_save(self, xn):
     xm = self.buffer + xn[0:self.sample_length - (self.N)]
     assert len(xm) == self.sample_length, "the length of the block must eqaul to sample length {}. Received {}".format(self.sample_length, len(xm))
