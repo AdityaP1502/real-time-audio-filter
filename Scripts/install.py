@@ -11,7 +11,7 @@ REPO_URL="https://github.com/AdityaP1502/fft-c"
 branch = "Windows"
 SCRIPT_PATH = os.path.realpath(os.path.dirname(__file__))
 ROOT_PATH = os.path.join(SCRIPT_PATH, "..")
-INSTALL_DIR= os.path.abspath(f"{ROOT_PATH}/libs")
+INSTALL_DIR= os.path.abspath(f"{ROOT_PATH}/Tools/fft/libs")
 
 def run_command(cmd):
   p = subprocess.Popen(cmd);  
