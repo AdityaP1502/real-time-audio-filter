@@ -13,7 +13,7 @@ class KeyPressHandlerWindows():
         self.l=None  # listener
 
         self.listened_window=GetWindowText(GetForegroundWindow())  # set listened window name
-        self.focused_checker=Thread(target=self.check_focused)  # check if out of focused window in a thread
+        self.focused_checker=Thread(target=self.check_focused, daemon="True")  # check if out of focused window in a thread
         self.focused_checker.start()
         
         self.__func = self.on_press_factory(func)
@@ -58,3 +58,6 @@ class KeyPressHandlerWindows():
                     self.start()
                     self.is_paused=False
             sleep(0.1)
+    
+    def is_active(self):
+        return self.__thread.is_alive()

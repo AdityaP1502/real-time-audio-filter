@@ -14,8 +14,8 @@ if __name__ == "__main__":
         tty.setcbreak(sys.stdin)
 
     # filter design
-    fp = [3400, 8000]
-    fs = [1400, 10400]
+    fp = [8000, 16000]
+    fs = [5000, 19000]
     Fs = conf.RATE
     filter_type = "bandpass"
     fir_filter_designer = FIR_FilterDesigner(
@@ -30,17 +30,16 @@ if __name__ == "__main__":
     keyhandler, recorder = Recorder.init_recorder(records)
     player = Player.init_player(records, audio_filter)
     
-    signal.signal(signal.SIGINT, create_interupt_handler(recorder))
-    
     try:
         player.join()
         recorder.join()
-        keyhandler.join()   
+        keyhandler.join()
+        print("All thread has finished without errors")
         
     except BaseException as e:
-        sys.exit(1)
+        print("Error while processing")
         
     finally:
         if conf.PLATFORM == "Linux":
             termios.tcsetattr(sys.stdin, termios.TCSADRAIN, orig_settings)
-            
+   

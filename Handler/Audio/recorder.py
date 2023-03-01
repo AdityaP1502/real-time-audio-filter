@@ -9,7 +9,7 @@ from Handler.keyboard.keypress_linux import KeyPressHandlerLinux
 
 class Recorder():
     def __init__(self, queue) -> None:
-        self.__thread = Thread(target=self.run)
+        self.__thread = Thread(target=self.run, daemon="True")
         self.state = 0
         self.__driver = pyaudio.PyAudio()
         self.stream = None
@@ -104,6 +104,9 @@ class Recorder():
         if self.exc != None:
             raise self.exc
 
+    def is_active(self):
+        return self.__thread.is_alive()
+    
     @classmethod
     def init_recorder(cls, records):
         # for i in range(8):
