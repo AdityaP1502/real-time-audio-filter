@@ -46,8 +46,7 @@ class Recorder():
                 raise Exception("Ctrl + c is pressed")
                 
         self.update_state(key)
-        
-            
+           
     @staticmethod
     def blocking_record():
         # record for 5 seconds
@@ -67,7 +66,7 @@ class Recorder():
 
         print("Recording stopped!")
         return b''.join(frames)
-        
+ 
     def run(self):
         print("Recorder is up and running!")
         try:
@@ -123,8 +122,3 @@ class Recorder():
             keyhandler = KeyPressHandlerLinux(func=recorder.update_state)
         
         return [keyhandler, recorder]
-
-
-
-if __name__ == "__main__":
-    pass

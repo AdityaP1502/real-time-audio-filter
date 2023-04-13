@@ -1,9 +1,8 @@
 from multiprocessing import Queue
-import signal
-from Tools.Filter.DigitalFilter.FilterDesigner import FIR_FilterDesigner
+
 from Handler.Audio.recorder import *
 from Handler.Audio.player import *
-from Handler.keyboard.keyboard_interrupt import create_interupt_handler
+from Tools.Filter.DigitalFilter.FilterDesigner import FIR_FilterDesigner
 import Config.conf as conf
 
 if __name__ == "__main__":
@@ -22,7 +21,7 @@ if __name__ == "__main__":
         f_p=fs, f_s=fp, A_p=3, A_s=20, Fs=Fs, filter_type=filter_type)
     
     fir_filter = fir_filter_designer.create_filter()
-    fir_filter.init_filter(1024)
+    fir_filter.init_filter(conf.CHUNK)
     
     audio_filter = AudioFilter(fir_filter)
     

@@ -5,7 +5,6 @@ from Tools.Filter.DigitalFilter.IIR_Filter import IIR_Filter
 from Tools.Filter.DigitalFilter.FIR_Filter import FIR_Filter
 from Tools.Filter.DigitalFilter.WIndow import Window
 
-
 class IIR_FilterDesigner():
     def __init__(self, f_p, f_s, A_p, A_s, Fs, filter_type, analog_filter_type="butter") -> None:
         if (len(f_p) != 1 or len(f_s) != 1) and (filter_type == "lowpass" or filter_type == "highpass"):
