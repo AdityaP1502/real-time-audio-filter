@@ -10,6 +10,7 @@ from Tools.Filter.Effects.Effects import *
 class AudioFilter():
     def __init__(self, dig_filter) -> None:
         self.filter = dig_filter
+        self.additional_filter = Delay(delay_strength=0.125, delay=0.1, Fs=conf.RATE, chunk=conf.CHUNK)
 
     @staticmethod
     def __clamp_output(data):
@@ -50,15 +51,16 @@ class AudioFilter():
         filtered_data = self.filter.filter(data0, data1)
 
         for result in filtered_data:
-            gain_data = map(lambda x: self.increase_volume(x), result)
+            gain_data = map(
+                lambda x: self.increase_volume(x), result)
             gain_data = map(lambda x: SoftClipper.apply_effects(
                 x, thresh=50), gain_data)
+            map(lambda x : self.additional_filter.apply_effects(x), gain_data)
             rounded_data = map(lambda x: self.__clamp_output(x), gain_data)
             output_chunks.append(self.__convert_arr_to_bytes(rounded_data))
 
         return output_chunks
-
-
+    
 class Player():
     def __init__(self, buffer, audio_filter) -> None:
         self.__thread = Thread(target=self.run, daemon="True")
