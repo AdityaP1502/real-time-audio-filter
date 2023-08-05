@@ -1,6 +1,7 @@
+#!/bin/bash
 FFT_REPO_URL=https://github.com/AdityaP1502/fft-c
 REPO_FOLDER="fft-c"
-INSTALL_DIR=libs
+INSTALL_DIR="Tools/fft/libs"
 
 if [ ! -d "$INSTALL_DIR" ];
 then
@@ -11,7 +12,7 @@ fi
 pushd $INSTALL_DIR
 
 # now at INStALL DIR 
-git clone $FFT_REPO_URL
+git clone $FFT_REPO_URL -b Windows
 
 pushd $REPO_FOLDER
 
@@ -22,7 +23,7 @@ then
 	echo "Creating install directory"
 	mkdir ../shared
 fi
-cp libs/libconv.so libs/libitfft.so ../shared
+cp libs/libconv.so libs/libitfft.so libs/libfft.so libs/libitfft4.so ../shared
 
 popd
 rm -rf $REPO_FOLDER

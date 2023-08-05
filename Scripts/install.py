@@ -1,4 +1,5 @@
 import subprocess
+import shlex
 import platform
 import shutil
 import os.path
@@ -15,7 +16,8 @@ INSTALL_DIR = os.path.abspath(f"{ROOT_PATH}/Tools/fft/libs")
 
 
 def run_command(cmd):
-    p = subprocess.Popen(cmd)
+    # p = subprocess.Popen(cmd, shell=True)
+    p = subprocess.Popen(shlex.split(cmd))
     res = p.communicate()
 
     retcode = p.returncode
@@ -32,33 +34,33 @@ def on_rm_error(func, path, exc_info):
 if __name__ == "__main__":
     try:
         if platform.system() == "Linux":
-            run_command("source scripts/install.sh")
-            sys.exit(0)
+            run_command("./Scripts/install.sh")
+            
+        else:
+            os.chdir(INSTALL_DIR)
 
-        os.chdir(INSTALL_DIR)
+            run_command("git clone {} --branch {}".format(REPO_URL, branch))
+            os.chdir(os.path.join(INSTALL_DIR, "fft-c"))
 
-        run_command("git clone {} --branch {}".format(REPO_URL, branch))
-        os.chdir(os.path.join(INSTALL_DIR, "fft-c"))
+            print("Compiling...")
+            run_command(cmd="python Scripts/install.py")
 
-        print("Compiling...")
-        run_command(cmd="python scripts/install.py")
+            try:
+                shutil.copytree(src=os.path.abspath("dll"),
+                                dst=os.path.join(INSTALL_DIR, "shared"))
+            except FileExistsError:
+                print("Source and destination represents the same file.")
+                print("Updating the file...")
+                shutil.rmtree(os.path.join(INSTALL_DIR, "shared"),
+                            onerror=on_rm_error)
+                shutil.copytree(src=os.path.abspath("dll"),
+                                dst=os.path.join(INSTALL_DIR, "shared"))
 
-        try:
-            shutil.copytree(src=os.path.abspath("dll"),
-                            dst=os.path.join(INSTALL_DIR, "shared"))
-        except FileExistsError:
-            print("Source and destination represents the same file.")
-            print("Updating the file...")
-            shutil.rmtree(os.path.join(INSTALL_DIR, "shared"),
-                          onerror=on_rm_error)
-            shutil.copytree(src=os.path.abspath("dll"),
-                            dst=os.path.join(INSTALL_DIR, "shared"))
+            os.chdir(INSTALL_DIR)
+            shutil.rmtree(os.path.join(INSTALL_DIR, "fft-c"), onerror=on_rm_error)
 
-        os.chdir(INSTALL_DIR)
-        shutil.rmtree(os.path.join(INSTALL_DIR, "fft-c"), onerror=on_rm_error)
-
-        os.chdir(ROOT_PATH)
-        print("OK")
+            os.chdir(ROOT_PATH)
+            print("OK")
 
     except BaseException as e:
         print(type(e).__name__)
